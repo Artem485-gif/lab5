@@ -1,0 +1,851 @@
+﻿@layer reset, base, components, utilities;
+
+/* ==============================
+   1. RESET
+   ============================== */
+@layer reset {
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+    }
+
+    img {
+        max-inline-size: 100%;
+        block-size: auto;
+    }
+
+    input,
+    textarea,
+    select,
+    button {
+        font: inherit;
+    }
+}
+
+/* ==============================
+   2. BASE: дизайн-токени
+   ============================== */
+@layer base {
+    :root {
+        color-scheme: light dark;
+
+        --color-page: #f3f4f6;
+        --color-surface: #ffffff;
+        --color-surface-soft: #f8f1f1;
+        --color-text: #242424;
+        --color-muted: #595959;
+        --color-accent: #a91f27;
+        --color-accent-hover: #7f151c;
+        --color-border: #b8b8b8;
+        --color-focus: #7b1fa2;
+        --color-error: #b00020;
+        --color-success: #176b38;
+
+        --font-body: "Segoe UI", Arial, sans-serif;
+        --font-heading: "Segoe UI", Arial, sans-serif;
+
+        --space-xs: 0.25rem;
+        --space-s: 0.5rem;
+        --space-m: 1rem;
+        --space-l: 1.5rem;
+        --space-xl: 2rem;
+
+        --radius-small: 0.375rem;
+        --radius-medium: 0.75rem;
+        --radius-large: 1rem;
+
+        --shadow-card: 0 4px 16px rgb(0 0 0 / 8%);
+        --content-width: 1250px;
+    }
+
+    html {
+        font-family: var(--font-body);
+        line-height: 1.6;
+        background: var(--color-page);
+        color: var(--color-text);
+    }
+
+    body {
+        min-inline-size: 320px;
+        font-size: 1rem;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        font-family: var(--font-heading);
+        color: var(--color-text);
+        line-height: 1.25;
+    }
+
+    h1 {
+        font-size: clamp(1.8rem, 4vw, 2.4rem);
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.15rem;
+    }
+
+    p {
+        margin-block: 0 var(--space-m);
+    }
+
+    a {
+        color: var(--color-accent);
+        text-underline-offset: 0.2em;
+    }
+
+    a:hover {
+        color: var(--color-accent-hover);
+    }
+
+    ul,
+    ol {
+        padding-inline-start: 1.5rem;
+    }
+
+    table {
+        inline-size: 100%;
+        border-collapse: collapse;
+        background: var(--color-surface);
+    }
+
+    th,
+    td {
+        padding: 0.75rem;
+        border: 1px solid var(--color-border);
+        text-align: start;
+    }
+
+    th {
+        background: var(--color-accent);
+        color: #ffffff;
+    }
+
+    caption {
+        padding-block: var(--space-s);
+        text-align: start;
+        color: var(--color-muted);
+    }
+
+    :focus-visible {
+        outline: 3px solid var(--color-focus);
+        outline-offset: 3px;
+    }
+}
+
+/* ==============================
+   3. COMPONENTS: спільні елементи
+   ============================== */
+@layer components {
+    .top-bar {
+        padding: 0.55rem 1rem;
+        background: var(--color-accent);
+        color: #ffffff;
+        text-align: center;
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+    }
+
+    .main-header {
+        padding: 1rem 2rem;
+        background: var(--color-surface);
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .header-container {
+        max-inline-size: 1400px;
+        margin-inline: auto;
+        text-align: justify;
+        font-size: 0;
+    }
+
+    .header-container::after {
+        content: "";
+        display: inline-block;
+        inline-size: 100%;
+    }
+
+    .header-container > * {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 1rem;
+        text-align: start;
+    }
+
+    .logo {
+        margin: 0;
+        color: var(--color-text);
+        font-size: 1.5rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+    }
+
+    .header-info {
+        color: var(--color-muted);
+        font-size: 0.85rem;
+    }
+
+    .top-nav {
+        display: inline-block;
+    }
+
+    .top-nav ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .top-nav li {
+        display: inline-block;
+        margin-inline-start: 1rem;
+    }
+
+    .top-nav a {
+        display: inline-block;
+        padding: 0.4rem 0.2rem;
+        color: var(--color-text);
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .top-nav a[aria-current="page"],
+    .top-nav a:hover {
+        color: var(--color-accent);
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+    }
+
+    .site-container {
+        max-inline-size: var(--content-width);
+        margin: 2rem auto;
+        padding: 2rem;
+        background: var(--color-surface);
+        border-radius: var(--radius-large);
+        box-shadow: var(--shadow-card);
+    }
+
+    .page-title-block {
+        margin-block-end: 2rem;
+        padding-block-end: 1.25rem;
+        border-bottom: 1px solid var(--color-border);
+        text-align: center;
+    }
+
+    .main-title {
+        margin-block: 0 0.75rem;
+    }
+
+    .breadcrumbs {
+        color: var(--color-muted);
+        font-size: 0.85rem;
+    }
+
+    .breadcrumbs a {
+        color: var(--color-accent);
+    }
+
+    .breadcrumbs > * + *::before {
+        content: "/";
+        display: inline-block;
+        margin-inline: 0.5rem;
+        color: var(--color-muted);
+    }
+
+    .main-footer {
+        margin-block-start: 2.5rem;
+        padding: 1.5rem;
+        border-top: 1px solid var(--color-border);
+        background: var(--color-surface);
+        color: var(--color-muted);
+        text-align: center;
+        font-size: 0.85rem;
+    }
+
+    /* Каталог */
+    .content-wrapper {
+        font-size: 0;
+    }
+
+    .sidebar,
+    .catalog-section {
+        display: inline-block;
+        vertical-align: top;
+        font-size: 1rem;
+    }
+
+    .sidebar {
+        inline-size: 21%;
+        padding-inline-end: 1.5rem;
+    }
+
+    .catalog-section {
+        inline-size: 79%;
+    }
+
+    .sidebar h2 {
+        font-size: 1rem;
+    }
+
+    .sidebar-menu,
+    .sub-menu {
+        list-style: none;
+        padding: 0;
+    }
+
+    .sidebar-menu li {
+        margin-block: 0.4rem;
+    }
+
+    .sidebar-menu a {
+        color: var(--color-text);
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .sidebar-menu a:hover,
+    .sidebar-menu .active-category > a {
+        color: var(--color-accent);
+    }
+
+    .sub-menu {
+        padding-inline-start: 1rem;
+    }
+
+    .sub-menu a {
+        color: var(--color-muted);
+        font-weight: 400;
+    }
+
+    .catalog-title {
+        margin-block: 0 1rem;
+    }
+
+    .catalog-grid {
+        font-size: 0;
+        margin-inline: -0.5rem;
+    }
+
+    .movie-card {
+        display: inline-block;
+        vertical-align: top;
+        inline-size: calc(33.333% - 1rem);
+        margin: 0.5rem;
+        padding: 1rem;
+        overflow: hidden;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-medium);
+        background: var(--color-surface);
+        box-shadow: var(--shadow-card);
+        text-align: center;
+        font-size: 1rem;
+    }
+
+    .movie-card header {
+        margin-block-end: 0.75rem;
+    }
+
+    .movie-card h3 {
+        margin-block: 0 0.5rem;
+        font-size: 1rem;
+    }
+
+    .movie-card h3 a {
+        color: var(--color-text);
+        text-decoration: none;
+    }
+
+    .movie-card h3 a:hover {
+        color: var(--color-accent);
+    }
+
+    .movie-card figure {
+        margin: 0 0 1rem;
+    }
+
+    .movie-card img {
+        display: block;
+        inline-size: 100%;
+        max-block-size: 290px;
+        object-fit: contain;
+        border-radius: var(--radius-small);
+        box-shadow: var(--shadow-card);
+    }
+
+    .movie-card figcaption {
+        margin-block-start: 0.4rem;
+        color: var(--color-muted);
+        font-size: 0.8rem;
+    }
+
+    .movie-card p,
+    .movie-card li {
+        color: var(--color-muted);
+        font-size: 0.85rem;
+    }
+
+    .movie-card a {
+        color: var(--color-accent);
+    }
+
+    .movie-status {
+        padding: 0.4rem;
+        border-radius: var(--radius-small);
+        background: var(--color-surface-soft);
+    }
+
+    .movie-status strong {
+        color: var(--color-success);
+    }
+
+    .movie-card:has(.movie-status strong) {
+        border-block-start: 4px solid var(--color-accent);
+    }
+
+    .about-section {
+        margin-block-start: 2rem;
+        padding: 1.5rem;
+        border-inline-start: 5px solid var(--color-accent);
+        border-radius: var(--radius-medium);
+        background: var(--color-surface-soft);
+    }
+
+    /* Сторінка деталей */
+    .site-container > article > header {
+        margin-block-end: 1.5rem;
+        color: var(--color-muted);
+    }
+
+    .site-container > article > nav {
+        margin-block-end: 1.5rem;
+        padding: 1rem 1.5rem;
+        border-inline-start: 4px solid var(--color-accent);
+        border-radius: var(--radius-medium);
+        background: var(--color-surface-soft);
+    }
+
+    .site-container > article > nav li {
+        display: inline-block;
+        margin-inline-end: 1rem;
+    }
+
+    .site-container > article > section {
+        margin-block: 1.25rem;
+        padding: 1.5rem;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-medium);
+        background: var(--color-surface);
+        box-shadow: var(--shadow-card);
+    }
+
+    .site-container > article > section h2 {
+        padding-block-end: 0.6rem;
+        border-bottom: 2px solid var(--color-accent);
+    }
+
+    .site-container > article > section p {
+        max-inline-size: 65ch;
+        color: var(--color-muted);
+    }
+
+    .site-container > article > section img {
+        display: block;
+        max-inline-size: 280px;
+        margin-inline: auto;
+        border-radius: var(--radius-small);
+        box-shadow: var(--shadow-card);
+    }
+
+    .site-container > article > section dl {
+        margin: 0;
+    }
+
+    .site-container > article > section dt {
+        margin-block-start: 0.6rem;
+        color: var(--color-muted);
+        font-weight: 700;
+    }
+
+    .site-container > article > section dd {
+        margin-inline-start: 0;
+        padding-block: 0.4rem;
+        border-bottom: 1px solid var(--color-border);
+        font-weight: 600;
+    }
+
+    .site-container > article > section tbody tr:nth-child(even) {
+        background: var(--color-surface-soft);
+    }
+
+    .site-container > article > section tbody tr:hover {
+        background: var(--color-page);
+    }
+
+    /* Сторінка про проєкт та FAQ */
+    .site-container > section:not(.page-title-block) {
+        margin-block-end: 1.25rem;
+        padding: 1.5rem;
+        border: 1px solid var(--color-border);
+        border-inline-start: 5px solid var(--color-accent);
+        border-radius: var(--radius-medium);
+        background: var(--color-surface);
+        box-shadow: var(--shadow-card);
+    }
+
+    .site-container > section:not(.page-title-block) h2 {
+        padding-block-end: 0.5rem;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .site-container details {
+        margin-block: 0.75rem;
+        padding: 1rem;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-medium);
+        background: var(--color-surface-soft);
+    }
+
+    .site-container details[open] {
+        border-inline-start: 4px solid var(--color-accent);
+    }
+
+    .site-container summary {
+        color: var(--color-text);
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .site-container summary::marker {
+        color: var(--color-accent);
+    }
+
+    .site-container details p {
+        margin-block: 0.75rem 0;
+        padding-block-start: 0.75rem;
+        border-top: 1px solid var(--color-border);
+    }
+
+    .site-container address {
+        padding: 1.25rem;
+        border-inline-start: 4px solid var(--color-accent);
+        border-radius: var(--radius-small);
+        background: var(--color-surface-soft);
+        color: var(--color-muted);
+        font-style: normal;
+    }
+
+    /* Форми */
+    form {
+        max-inline-size: 760px;
+        margin-block: 1.5rem;
+    }
+
+    fieldset {
+        min-inline-size: 0;
+        margin-block: 1.25rem;
+        padding: 1.25rem;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-medium);
+        background: var(--color-surface);
+    }
+
+    legend {
+        padding-inline: 0.5rem;
+        color: var(--color-accent);
+        font-weight: 700;
+    }
+
+    label {
+        display: block;
+        margin-block: 0.75rem 0.3rem;
+        color: var(--color-text);
+        font-weight: 600;
+    }
+
+    input:not([type="checkbox"]):not([type="radio"]),
+    textarea,
+    select {
+        display: block;
+        inline-size: 100%;
+        max-inline-size: 100%;
+        min-block-size: 2.75rem;
+        padding: 0.65rem 0.8rem;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-small);
+        background: var(--color-surface);
+        color: var(--color-text);
+    }
+
+    textarea {
+        min-block-size: 8rem;
+        resize: vertical;
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+        accent-color: var(--color-accent);
+    }
+
+    input:focus-visible,
+    textarea:focus-visible,
+    select:focus-visible,
+    button:focus-visible {
+        outline: 3px solid var(--color-focus);
+        outline-offset: 2px;
+    }
+
+    input:user-invalid,
+    textarea:user-invalid,
+    select:user-invalid {
+        border: 2px solid var(--color-error);
+    }
+
+    input:user-invalid:focus,
+    textarea:user-invalid:focus,
+    select:user-invalid:focus {
+        outline: 2px solid var(--color-error);
+    }
+
+    small,
+    [id$="-hint"] {
+        display: block;
+        margin-block-start: 0.3rem;
+        color: var(--color-muted);
+        font-size: 0.82rem;
+    }
+
+    button {
+        display: inline-block;
+        margin: 0.4rem 0.4rem 0.4rem 0;
+        padding: 0.7rem 1.2rem;
+        border: 2px solid var(--color-accent);
+        border-radius: var(--radius-small);
+        background: var(--color-accent);
+        color: #ffffff;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    button:hover {
+        border-color: var(--color-accent-hover);
+        background: var(--color-accent-hover);
+    }
+
+    button[type="reset"] {
+        background: var(--color-surface);
+        color: var(--color-accent);
+    }
+
+    button[type="reset"]:hover {
+        background: var(--color-surface-soft);
+    }
+
+    /* Адміністративні сторінки */
+    body > header,
+    body > main,
+    body > footer {
+        max-inline-size: var(--content-width);
+        margin: 1.5rem auto;
+        padding: 1.5rem;
+    }
+
+    body > header,
+    body > main {
+        border-radius: var(--radius-medium);
+        background: var(--color-surface);
+        box-shadow: var(--shadow-card);
+    }
+
+    body > header nav a {
+        display: inline-block;
+        margin-inline-end: 1rem;
+    }
+
+    body > main table {
+        margin-block: 1.5rem;
+    }
+
+    body > main th,
+    body > main td {
+        vertical-align: top;
+    }
+
+    body > main td a {
+        font-weight: 600;
+    }
+}
+
+/* ==============================
+   4. UTILITIES
+   ============================== */
+@layer utilities {
+    .text-muted {
+        color: var(--color-muted);
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .content-narrow {
+        max-inline-size: 65ch;
+    }
+}
+
+/* ==============================
+   5. Адаптивність
+   ============================== */
+@media (max-width: 900px) {
+    @layer components {
+        .site-container {
+            margin: 1rem;
+            padding: 1.25rem;
+        }
+
+        .sidebar {
+            inline-size: 28%;
+        }
+
+        .catalog-section {
+            inline-size: 72%;
+        }
+
+        .movie-card {
+            inline-size: calc(50% - 1rem);
+        }
+    }
+}
+
+@media (max-width: 650px) {
+    @layer components {
+        .main-header {
+            padding: 1rem;
+        }
+
+        .header-container {
+            text-align: center;
+        }
+
+        .header-container > * {
+            display: block;
+            margin-block: 0.5rem;
+            text-align: center;
+        }
+
+        .top-nav li {
+            margin: 0.25rem;
+        }
+
+        .site-container {
+            margin: 0.5rem;
+            padding: 1rem;
+        }
+
+        .sidebar,
+        .catalog-section {
+            display: block;
+            inline-size: 100%;
+        }
+
+        .sidebar {
+            margin-block-end: 1.5rem;
+        }
+
+        .movie-card {
+            display: block;
+            inline-size: calc(100% - 1rem);
+            max-inline-size: 420px;
+            margin-inline: auto;
+        }
+
+        .site-container > article > nav li {
+            display: block;
+            margin-block: 0.5rem;
+        }
+
+        body > header,
+        body > main,
+        body > footer {
+            margin: 0.5rem;
+            padding: 1rem;
+        }
+
+        table {
+            font-size: 0.85rem;
+        }
+
+        th,
+        td {
+            padding: 0.45rem;
+        }
+
+        button {
+            max-inline-size: 100%;
+        }
+    }
+}
+
+/* ==============================
+   6. ТЕМНА ТЕМА
+   ============================== */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-page: #171719;
+        --color-surface: #242427;
+        --color-surface-soft: #302326;
+        --color-text: #f2f0f0;
+        --color-muted: #c2bfc1;
+        --color-accent: #ff777e;
+        --color-accent-hover: #ff9ba0;
+        --color-border: #777176;
+        --color-focus: #d6a6ff;
+        --color-error: #ff8585;
+        --color-success: #79d99a;
+
+        --shadow-card: 0 4px 18px rgb(0 0 0 / 35%);
+    }
+
+    .top-bar,
+    th,
+    button {
+        color: #241416;
+    }
+
+    .movie-status strong {
+        color: var(--color-success);
+    }
+}
+
+
+@layer components {
+    .movie-status .status-viewed {
+        display: inline-block;
+        padding: 0.25rem 0.65rem;
+        border-radius: 0.4rem;
+        background-color: #198754;
+        color: #ffffff;
+        font-weight: 700;
+    }
+
+    .movie-status .status-unviewed {
+        display: inline-block;
+        padding: 0.25rem 0.65rem;
+        border-radius: 0.4rem;
+        background-color: #dc3545;
+        color: #ffffff;
+        font-weight: 700;
+    }
+}
